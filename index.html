@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Titsa'a Ndipowa">
+    <meta name="description" content="this is a sample portfolio project from TripleTen Coding Bootcamp - Sprint 1">
+    <meta name="keywords" content="flashcards, study aids, learning materials">
+    <link rel="icon" href="favicon.ico">
+    <!-- normalize first, then your styles -->
+    <link rel="stylesheet" href="./assets/vendor/normalize.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+
+    <title>Portfolio Project</title>
+</head>
+<body class="page">
+    <header class="header">
+        <nav class="nav">
+            <h1 class="header__title">
+                <a class="header__link" href="#">Flash Cards</a>
+            </h1>
+            <ul class="nav__links">
+                <li class="nav__link"><a href="#home">My Decks</a></li>
+                <li class="nav__link"><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page__main-content">
+        <section id="home" class="decks">
+            <h2 class="decks__title">My Decks</h2>
+            <ul class="decks__list">
+                <template id="deck-template">
+                    <li class="deck deck_color_green">
+                        <a class="deck__link" href="#"></a>
+                        <h3 class="deck__title"></h3>
+                        <div class="deck__row">
+                            <p class="deck__count"></p>
+                            <button type="button" class="deck__delete-btn" aria-label="Delete this deck">
+                                <img src="./assets/images/delete.svg" alt="Delete icon">
+                            </button>
+                        </div>
+                    </li>
+                </template>
+                <li class="deck"> 
+                    <button type="button" class="decks__new-deck-btn" aria-label="Add new deck">
+                        + New Deck
+                    </button>
+                </li>
+            </ul>
+
+        </section>
+        <section id="not-found" class="not-found">
+            <h2 class="not-found__title">404 Not Found</h2>
+            <p class="not-found__text">The page you are looking for does not exist.</p>
+        </section>
+        <section id="carousel" class="carousel">
+            <h2 class="carousel__title"></h2>
+            <div class="carousel__row">
+                <button
+                    type="button"
+                    aria-label="Go to previous card in deck"
+                    class="carousel__btn carousel__btn_type_left carousel__btn_disabled"
+                ></button>
+                <div class="carousel__card">
+                    <p class="carousel__card-text"></p>
+                </div>
+                <button
+                    type="button"
+                    aria-label="Go to next card in deck"
+                    class="carousel__btn carousel__btn_type_right"
+                ></button>
+            </div>
+            <button
+                type="button"
+                aria-label="Flip card"
+                class="carousel__btn carousel__btn_type_flip"
+            ></button>
+        </section>
+    </main>
+    <footer class="footer">
+        <p class="footer__text">designed with love &copy; 2026</p>
+    </footer>
+
+<script src="./assets/js/index.js" type="module"></script>
+</body>
+</html>
