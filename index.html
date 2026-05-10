@@ -34,26 +34,45 @@
     <main class="page__main-content">
         <section id="home" class="gallery">
             <h2 class="gallery__title">My Decks</h2>
-            <ul class="gallery__list">
-                <template id="deck-template">
-                    <li class="card card_color_green">
-                        <a class="card__link" href="#"></a>
-                        <h3 class="card__title"></h3>
-                        <div class="card__row">
-                            <p class="card__count"></p>
-                            <button type="button" class="card__delete-btn" aria-label="Delete this deck">
-                                <img src="./assets/images/delete.svg" alt="Delete icon">
-                            </button>
-                        </div>
-                    </li>
-                </template>
-                <li class="card"> 
-                    <button type="button" class="gallery__new-card-btn" aria-label="Add new deck">
-                        + New Deck
-                    </button>
-                </li>
-            </ul>
-
+            <div class="wrapping-row">
+                <ul class="gallery__list wrapping-row__display-contents">
+                    <template id="deck-template">
+                        <li class="card">
+                            <a class="card__link" href="#"></a>
+                            <h3 class="card__title"></h3>
+                            <div class="card__row">
+                                <p class="card__count"></p>
+                                <button type="button" class="card__btn card__btn_type_delete" aria-label="Delete this deck"></button>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+                <button type="button" class="gallery__new-card-btn" aria-label="Add new deck">
+                    + New Deck
+                </button>
+            </div>
+        </section>
+        <section id="deck-view" class="gallery">
+            <div class="gallery__header">
+                <h2 class="gallery__title"></h2>
+                <button type="button" class="gallery__practice-btn" aria-label="Practice">Practice</button>
+            </div>
+            <div class="wrapping-row">
+                <ul class="gallery__list wrapping-row__display-contents">
+                    <template id="flashcard-template">
+                        <li class="card">
+                            <h3 class="card__title"></h3>
+                            <div class="card__row">
+                                <button type="button" class="card__btn card__btn_type_flip" aria-label="Flip flashcard"></button>
+                                <button type="button" class="card__btn card__btn_type_delete" aria-label="Delete flashcard"></button>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+                <button type="button" class="gallery__new-card-btn" aria-label="Add new card">
+                    + New Card
+                </button>
+            </div>
         </section>
         <section id="not-found" class="not-found">
             <h2 class="not-found__title">404 Not Found</h2>

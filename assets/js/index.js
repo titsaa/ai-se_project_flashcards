@@ -1,15 +1,19 @@
 import { decks, getDeckByID } from "./gallery.js";
-import { stringToHex, hexToString, removeColorClasses } from "./colorMap.js";
+import { hexToString } from "./colorMap.js";
 import { renderCarouselView } from "./carousel.js";
+import { renderDeckView } from "./deck-view.js";
 
+let currentDeck = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   const deckTemplate = document.querySelector("#deck-template");
-  const decksList = document.querySelector(".gallery__list");
+  const decksList = document.querySelector("#home .gallery__list");
   const homeSection = document.querySelector("#home");
+  const deckViewSection = document.querySelector("#deck-view");
   const notFoundSection = document.querySelector("#not-found");
   const carouselSection = document.querySelector("#carousel");
   const mainEl = document.querySelector(".page__main-content");
+  const practiceBtn = deckViewSection.querySelector(".gallery__practice-btn");
 
   function createDeckEl(item) {
     const deckEl = deckTemplate.content.cloneNode(true);
@@ -30,11 +34,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Set the deck link href
     const deckLink = deckEl.querySelector(".card__link");
     if (deckLink) {
-      deckLink.href = `#carousel/${item.id}`;
+      deckLink.href = `#deck/${item.id}`;
     }
     
     // Add delete button functionality
-    const deleteBtn = deckEl.querySelector(".card__delete-btn");
+    const deleteBtn = deckEl.querySelector(".card__btn_type_delete");
     if (deleteBtn) {
       deleteBtn.addEventListener("click", (e) => {
         e.stopPropagation(); // Prevent triggering the deck link
@@ -50,41 +54,76 @@ document.addEventListener("DOMContentLoaded", () => {
     decksList.prepend(deckEl);
   }
 
+  practiceBtn.addEventListener("click", () => {
+    if (currentDeck) {
+      window.location.hash = `#carousel/${currentDeck.id}`;
+    }
+  });
+
   // Router function
   function router() {
     const hash = window.location.hash.slice(1); // Remove the # symbol
-    
+
     if (hash === "home" || hash === "") {
       homeSection.style.display = "block";
+      deckViewSection.style.display = "none";
       notFoundSection.style.display = "none";
       carouselSection.style.display = "none";
-    } else if (hash.startsWith("carousel/")) {
+      mainEl.classList.remove("page__main-content_location_carousel");
+      currentDeck = null;
+    } else if (hash.startsWith("deck/")) {
       const deckID = hash.split("/")[1];
       const deck = getDeckByID(deckID);
-      
+
       if (deck) {
         homeSection.style.display = "none";
+        deckViewSection.style.display = "block";
         notFoundSection.style.display = "none";
-        carouselSection.style.display = "flex";
-        mainEl.classList.add("page__main-content_location_carousel");
-        renderCarouselView(deck);
+        carouselSection.style.display = "none";
+        mainEl.classList.remove("page__main-content_location_carousel");
+        currentDeck = deck;
+        renderDeckView(deck);
       } else {
         homeSection.style.display = "none";
+        deckViewSection.style.display = "none";
         notFoundSection.style.display = "block";
         carouselSection.style.display = "none";
         mainEl.classList.remove("page__main-content_location_carousel");
+        currentDeck = null;
+      }
+    } else if (hash.startsWith("carousel/")) {
+      const deckID = hash.split("/")[1];
+      const deck = getDeckByID(deckID);
+
+      if (deck) {
+        homeSection.style.display = "none";
+        deckViewSection.style.display = "none";
+        notFoundSection.style.display = "none";
+        carouselSection.style.display = "flex";
+        mainEl.classList.add("page__main-content_location_carousel");
+        currentDeck = deck;
+        renderCarouselView(deck);
+      } else {
+        homeSection.style.display = "none";
+        deckViewSection.style.display = "none";
+        notFoundSection.style.display = "block";
+        carouselSection.style.display = "none";
+        mainEl.classList.remove("page__main-content_location_carousel");
+        currentDeck = null;
       }
     } else {
       homeSection.style.display = "none";
+      deckViewSection.style.display = "none";
       notFoundSection.style.display = "block";
       carouselSection.style.display = "none";
       mainEl.classList.remove("page__main-content_location_carousel");
+      currentDeck = null;
     }
   }
 
   // Render initial decks
   decks.forEach(renderDeckEl);
-  
+
   // Set up router
   window.addEventListener("hashchange", router);
   router();

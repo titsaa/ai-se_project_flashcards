@@ -30,7 +30,34 @@
 .card__row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
+}
+
+.card__btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.6);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    opacity: 0.5;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+}
+
+.card__btn:hover {
+    opacity: 1;
+}
+
+.card__btn_type_flip {
+    background-image: url(../images/flip.svg);
+}
+
+.card__btn_type_delete {
+    background-image: url(../images/delete.svg);
 }
 
 .card__delete-btn {
@@ -56,3 +83,4 @@
 .card_color_purple { background-color: #aa8ef0; }
 .card_color_orange { background-color: #ee955e; }
 .card_color_yellow { background-color: #F5D770; }
+.card_color_white { background-color: #ffffff; }

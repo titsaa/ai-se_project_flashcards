@@ -1,7 +1,39 @@
 .gallery__title {
     font-weight: 700;
     font-size: 40px;
-    margin-top: 0;
+    margin: 0 0 24px 0;
+}
+
+.gallery__header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.gallery__practice-btn {
+    border: none;
+    background-color: #1a1a1a;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.2;
+    padding: 16px 24px;
+    border-radius: 16px;
+    cursor: pointer;
+    margin-bottom: 24px;
+}
+
+.gallery__practice-btn:hover {
+    opacity: 0.95;
+}
+
+#deck-view,
+#carousel,
+#not-found {
+    display: none;
 }
 
 .gallery__list li {
