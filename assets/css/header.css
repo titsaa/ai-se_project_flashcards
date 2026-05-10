@@ -1,0 +1,15 @@
+.header__link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header__link:hover {
+    text-decoration: underline;
+}
+
+.header__title {
+    font-weight: 900;
+    font-size: 24px;
+    letter-spacing: -0.24px;
+    margin: 0;
+}

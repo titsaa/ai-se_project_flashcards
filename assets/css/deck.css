@@ -1,0 +1,58 @@
+.deck {
+    width: 325px;
+    height: 205px;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.deck__link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.deck__title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.deck__count {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+.deck__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.deck__delete-btn {
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    opacity: 50%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.deck__delete-btn:hover {
+    opacity: 100%;
+}
+
+.deck_color_green  { background-color: #64d583; }
+.deck_color_blue   { background-color: #91A8F9; }
+.deck_color_pink   { background-color: #EE92D7; }
+.deck_color_purple { background-color: #aa8ef0; }
+.deck_color_orange { background-color: #ee955e; }
+.deck_color_yellow { background-color: #F5D770; }
