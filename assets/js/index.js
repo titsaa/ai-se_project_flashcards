@@ -1,11 +1,11 @@
-import { decks, getDeckByID } from "./decks.js";
+import { decks, getDeckByID } from "./gallery.js";
 import { stringToHex, hexToString, removeColorClasses } from "./colorMap.js";
 import { renderCarouselView } from "./carousel.js";
 
 
 document.addEventListener("DOMContentLoaded", () => {
   const deckTemplate = document.querySelector("#deck-template");
-  const decksList = document.querySelector(".decks__list");
+  const decksList = document.querySelector(".gallery__list");
   const homeSection = document.querySelector("#home");
   const notFoundSection = document.querySelector("#not-found");
   const carouselSection = document.querySelector("#carousel");
@@ -13,28 +13,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function createDeckEl(item) {
     const deckEl = deckTemplate.content.cloneNode(true);
-    const deckLi = deckEl.querySelector(".deck");
+    const deckLi = deckEl.querySelector(".card");
     
-    deckEl.querySelector(".deck__title").textContent = item.name;
+    deckEl.querySelector(".card__title").textContent = item.name;
     
     // Set the card count
     const cardCount = item.cards.length;
-    deckEl.querySelector(".deck__count").textContent = `${cardCount} cards`;
+    deckEl.querySelector(".card__count").textContent = `${cardCount} cards`;
     
     // Get the color name from hex and add the BEM modifier to the <li>
     const color = hexToString(item.color);
     if (color) {
-      deckLi.classList.add(`deck_color_${color}`);
+      deckLi.classList.add(`card_color_${color}`);
     }
     
     // Set the deck link href
-    const deckLink = deckEl.querySelector(".deck__link");
+    const deckLink = deckEl.querySelector(".card__link");
     if (deckLink) {
       deckLink.href = `#carousel/${item.id}`;
     }
     
     // Add delete button functionality
-    const deleteBtn = deckEl.querySelector(".deck__delete-btn");
+    const deleteBtn = deckEl.querySelector(".card__delete-btn");
     if (deleteBtn) {
       deleteBtn.addEventListener("click", (e) => {
         e.stopPropagation(); // Prevent triggering the deck link
