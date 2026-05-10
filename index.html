@@ -69,7 +69,7 @@
                         </li>
                     </template>
                 </ul>
-                <button type="button" class="gallery__new-card-btn" aria-label="Add new card">
+                <button type="button" class="gallery__new-card-btn gallery__new-card-btn_location_deck-view" aria-label="Add new card">
                     + New Card
                 </button>
             </div>
@@ -80,7 +80,7 @@
         </section>
         <section id="carousel" class="carousel">
             <h2 class="carousel__title"></h2>
-            <div class="carousel__row">
+            <div class="carousel__grid">
                 <button
                     type="button"
                     aria-label="Go to previous card in deck"
@@ -94,12 +94,12 @@
                     aria-label="Go to next card in deck"
                     class="carousel__btn carousel__btn_type_right"
                 ></button>
+                <button
+                    type="button"
+                    aria-label="Flip card"
+                    class="carousel__btn carousel__btn_type_flip"
+                ></button>
             </div>
-            <button
-                type="button"
-                aria-label="Flip card"
-                class="carousel__btn carousel__btn_type_flip"
-            ></button>
         </section>
     </main>
     <footer class="footer">

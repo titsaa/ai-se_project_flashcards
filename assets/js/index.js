@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const deckViewSection = document.querySelector("#deck-view");
   const notFoundSection = document.querySelector("#not-found");
   const carouselSection = document.querySelector("#carousel");
+  const pageEl = document.querySelector(".page");
   const mainEl = document.querySelector(".page__main-content");
   const practiceBtn = deckViewSection.querySelector(".gallery__practice-btn");
 
@@ -70,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
       notFoundSection.style.display = "none";
       carouselSection.style.display = "none";
       mainEl.classList.remove("page__main-content_location_carousel");
+      pageEl.classList.remove("page_no-mobile-bar");
       currentDeck = null;
     } else if (hash.startsWith("deck/")) {
       const deckID = hash.split("/")[1];
@@ -81,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         notFoundSection.style.display = "none";
         carouselSection.style.display = "none";
         mainEl.classList.remove("page__main-content_location_carousel");
+        pageEl.classList.remove("page_no-mobile-bar");
         currentDeck = deck;
         renderDeckView(deck);
       } else {
@@ -89,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         notFoundSection.style.display = "block";
         carouselSection.style.display = "none";
         mainEl.classList.remove("page__main-content_location_carousel");
+        pageEl.classList.add("page_no-mobile-bar");
         currentDeck = null;
       }
     } else if (hash.startsWith("carousel/")) {
@@ -101,6 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
         notFoundSection.style.display = "none";
         carouselSection.style.display = "flex";
         mainEl.classList.add("page__main-content_location_carousel");
+        pageEl.classList.add("page_no-mobile-bar");
         currentDeck = deck;
         renderCarouselView(deck);
       } else {
@@ -109,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         notFoundSection.style.display = "block";
         carouselSection.style.display = "none";
         mainEl.classList.remove("page__main-content_location_carousel");
+        pageEl.classList.add("page_no-mobile-bar");
         currentDeck = null;
       }
     } else {
