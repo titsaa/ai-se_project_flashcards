@@ -1,4 +1,5 @@
 import { hexToString } from "./colorMap.js";
+import { openModal } from "./modal.js";
 
 const deckViewSection = document.querySelector("#deck-view");
 const deckViewTitle = deckViewSection.querySelector(".gallery__title");
@@ -38,7 +39,9 @@ function createFlashcardEl(card, deckColor) {
   if (deleteBtn) {
     deleteBtn.addEventListener("click", (event) => {
       event.stopPropagation();
-      cardLi.remove();
+      openModal("Delete Card", "Are you sure you want to delete this card?", () => {
+        cardLi.remove();
+      });
     });
   }
 

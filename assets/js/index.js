@@ -2,6 +2,7 @@ import { decks, getDeckByID } from "./gallery.js";
 import { hexToString } from "./colorMap.js";
 import { renderCarouselView } from "./carousel.js";
 import { renderDeckView } from "./deck-view.js";
+import { openModal } from "./modal.js";
 
 let currentDeck = null;
 
@@ -15,6 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const pageEl = document.querySelector(".page");
   const mainEl = document.querySelector(".page__main-content");
   const practiceBtn = deckViewSection.querySelector(".gallery__practice-btn");
+
+  function showView(currentSection, displayValue) {
+    const sections = [homeSection, deckViewSection, notFoundSection, carouselSection];
+    sections.forEach(section => {
+      section.style.display = "none";
+    });
+    currentSection.style.display = displayValue;
+  }
 
   function createDeckEl(item) {
     const deckEl = deckTemplate.content.cloneNode(true);
@@ -43,7 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (deleteBtn) {
       deleteBtn.addEventListener("click", (e) => {
         e.stopPropagation(); // Prevent triggering the deck link
-        deckLi.remove(); // Remove the deck element from the DOM
+        openModal("Delete Deck", "Are you sure you want to delete this deck?", () => {
+          deckLi.remove();
+        });
       });
     }
     
@@ -66,10 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const hash = window.location.hash.slice(1); // Remove the # symbol
 
     if (hash === "home" || hash === "") {
-      homeSection.style.display = "block";
-      deckViewSection.style.display = "none";
-      notFoundSection.style.display = "none";
-      carouselSection.style.display = "none";
+      showView(homeSection, "block");
       mainEl.classList.remove("page__main-content_location_carousel");
       pageEl.classList.remove("page_no-mobile-bar");
       currentDeck = null;
@@ -78,19 +86,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const deck = getDeckByID(deckID);
 
       if (deck) {
-        homeSection.style.display = "none";
-        deckViewSection.style.display = "block";
-        notFoundSection.style.display = "none";
-        carouselSection.style.display = "none";
+        showView(deckViewSection, "block");
         mainEl.classList.remove("page__main-content_location_carousel");
         pageEl.classList.remove("page_no-mobile-bar");
         currentDeck = deck;
         renderDeckView(deck);
       } else {
-        homeSection.style.display = "none";
-        deckViewSection.style.display = "none";
-        notFoundSection.style.display = "block";
-        carouselSection.style.display = "none";
+        showView(notFoundSection, "block");
         mainEl.classList.remove("page__main-content_location_carousel");
         pageEl.classList.add("page_no-mobile-bar");
         currentDeck = null;
@@ -100,29 +102,21 @@ document.addEventListener("DOMContentLoaded", () => {
       const deck = getDeckByID(deckID);
 
       if (deck) {
-        homeSection.style.display = "none";
-        deckViewSection.style.display = "none";
-        notFoundSection.style.display = "none";
-        carouselSection.style.display = "flex";
+        showView(carouselSection, "flex");
         mainEl.classList.add("page__main-content_location_carousel");
         pageEl.classList.add("page_no-mobile-bar");
         currentDeck = deck;
         renderCarouselView(deck);
       } else {
-        homeSection.style.display = "none";
-        deckViewSection.style.display = "none";
-        notFoundSection.style.display = "block";
-        carouselSection.style.display = "none";
+        showView(notFoundSection, "block");
         mainEl.classList.remove("page__main-content_location_carousel");
         pageEl.classList.add("page_no-mobile-bar");
         currentDeck = null;
       }
     } else {
-      homeSection.style.display = "none";
-      deckViewSection.style.display = "none";
-      notFoundSection.style.display = "block";
-      carouselSection.style.display = "none";
+      showView(notFoundSection, "block");
       mainEl.classList.remove("page__main-content_location_carousel");
+      pageEl.classList.add("page_no-mobile-bar");
       currentDeck = null;
     }
   }
