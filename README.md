@@ -23,6 +23,6 @@ Check out [FlashCards](https://titsaa.github.io/ai-se_project_flashcards/)
 
 ## Project Pitch Video
  
-[Video Link](https://drive.google.com/file/d/18GCxWJrkriGg7anSo6z_4y3_8kiwXGVY/view?usp=drive_link) 
+[Video Link](https://drive.google.com/file/d/18GCxWJrkriGg7anSo6z_4y3_8kiwXGVY/view?usp=sharing) 
  
  where I describe my project and some challenges I faced while building it.
