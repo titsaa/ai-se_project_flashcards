@@ -1,124 +1,156 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Titsa'a Ndipowa">
-    <meta name="description" content="this is a sample portfolio project from TripleTen Coding Bootcamp - Sprint 1">
-    <meta name="keywords" content="flashcards, study aids, learning materials">
-    <link rel="icon" href="favicon.ico">
-    <!-- normalize first, then your styles -->
-    <!-- <link rel="stylesheet" href="./assets/vendor/normalize.css"> -->
-    <link rel="stylesheet" href="./assets/css/index.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Titsa'a Ndipowa" />
+    <meta
+      name="description"
+      content="this is a sample portfolio project from TripleTen Coding Bootcamp - Sprint 1"
+    />
+    <meta
+      name="keywords"
+      content="flashcards, study aids, learning materials"
+    />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="stylesheet" href="./assets/css/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap"
+      rel="stylesheet"
+    />
     <title>Portfolio Project</title>
-</head>
-<body class="page">
+  </head>
+  <body class="page">
     <header class="header">
-        <nav class="nav">
-            <h1 class="header__title">
-                <a class="header__link" href="#">Flash Cards</a>
-            </h1>
-            <ul class="nav__links">
-                <li class="nav__link"><a href="#home">My Decks</a></li>
-                <li class="nav__link"><a href="#about">About</a></li>
-            </ul>
-        </nav>
+      <nav class="nav">
+        <h1 class="header__title">
+          <a class="header__link" href="#">Flash Cards</a>
+        </h1>
+        <ul class="nav__links">
+          <li class="nav__link"><a href="#home">My Decks</a></li>
+          <li class="nav__link"><a href="#about">About</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main class="page__main-content">
-        <section id="home" class="gallery">
-            <h2 class="gallery__title">My Decks</h2>
-            <div class="wrapping-row">
-                <ul class="gallery__list wrapping-row__display-contents">
-                    <template id="deck-template">
-                        <li class="card">
-                            <a class="card__link" href="#"></a>
-                            <h3 class="card__title"></h3>
-                            <div class="card__row">
-                                <p class="card__count"></p>
-                                <button type="button" class="card__btn card__btn_type_delete" aria-label="Delete this deck"></button>
-                            </div>
-                        </li>
-                    </template>
-                </ul>
-                <button type="button" class="gallery__new-card-btn" aria-label="Add new deck">
-                    + New Deck
-                </button>
-            </div>
-        </section>
-        <section id="deck-view" class="gallery">
-            <div class="gallery__header">
-                <h2 class="gallery__title"></h2>
-                <button type="button" class="gallery__practice-btn" aria-label="Practice">Practice</button>
-            </div>
-            <div class="wrapping-row">
-                <ul class="gallery__list wrapping-row__display-contents">
-                    <template id="flashcard-template">
-                        <li class="card">
-                            <h3 class="card__title"></h3>
-                            <div class="card__row">
-                                <button type="button" class="card__btn card__btn_type_flip" aria-label="Flip flashcard"></button>
-                                <button type="button" class="card__btn card__btn_type_delete" aria-label="Delete flashcard"></button>
-                            </div>
-                        </li>
-                    </template>
-                </ul>
-                <button type="button" class="gallery__new-card-btn gallery__new-card-btn_location_deck-view" aria-label="Add new card">
-                    + New Card
-                </button>
-            </div>
-        </section>
-        <section id="not-found" class="not-found">
-            <h2 class="not-found__title">404 Not Found</h2>
-            <p class="not-found__text">The page you are looking for does not exist.</p>
-        </section>
-        <section id="carousel" class="carousel">
-            <h2 class="carousel__title"></h2>
-            <div class="carousel__grid">
-                <button
+      <section id="home" class="gallery">
+        <h2 class="gallery__title">My Decks</h2>
+        <div class="wrapping-row">
+          <ul class="gallery__list wrapping-row__display-contents">
+            <template id="deck-template">
+              <li class="card">
+                <a class="card__link" href="#"></a>
+                <h3 class="card__title">Deck title</h3>
+                <div class="card__row">
+                  <p class="card__count">0 cards</p>
+                  <button
                     type="button"
-                    aria-label="Go to previous card in deck"
-                    class="carousel__btn carousel__btn_type_left carousel__btn_disabled"
-                ></button>
-                <div class="carousel__card">
-                    <p class="carousel__card-text"></p>
+                    class="card__btn card__btn_type_delete"
+                    aria-label="Delete this deck"
+                  ></button>
                 </div>
-                <button
+              </li>
+            </template>
+          </ul>
+          <button
+            type="button"
+            class="gallery__new-card-btn"
+            aria-label="Add new deck"
+          >
+            + New Deck
+          </button>
+        </div>
+      </section>
+      <section id="deck-view" class="gallery">
+        <div class="gallery__header">
+          <h2 class="gallery__title">Deck</h2>
+          <button
+            type="button"
+            class="gallery__practice-btn"
+            aria-label="Practice"
+          >
+            Practice
+          </button>
+        </div>
+        <div class="wrapping-row">
+          <ul class="gallery__list wrapping-row__display-contents">
+            <template id="flashcard-template">
+              <li class="card">
+                <h3 class="card__title">Flashcard question</h3>
+                <div class="card__row">
+                  <button
                     type="button"
-                    aria-label="Go to next card in deck"
-                    class="carousel__btn carousel__btn_type_right"
-                ></button>
-                <button
+                    class="card__btn card__btn_type_flip"
+                    aria-label="Flip flashcard"
+                  ></button>
+                  <button
                     type="button"
-                    aria-label="Flip card"
-                    class="carousel__btn carousel__btn_type_flip"
-                ></button>
-            </div>
-        </section>
+                    class="card__btn card__btn_type_delete"
+                    aria-label="Delete flashcard"
+                  ></button>
+                </div>
+              </li>
+            </template>
+          </ul>
+          <button
+            type="button"
+            class="gallery__new-card-btn gallery__new-card-btn_location_deck-view"
+            aria-label="Add new card"
+          >
+            + New Card
+          </button>
+        </div>
+      </section>
+      <section id="not-found" class="not-found">
+        <h2 class="not-found__title">404 Not Found</h2>
+        <p class="not-found__text">
+          The page you are looking for does not exist.
+        </p>
+      </section>
+      <section id="carousel" class="carousel">
+        <h2 class="carousel__title">Flashcard practice</h2>
+        <div class="carousel__grid">
+          <button
+            type="button"
+            aria-label="Go to previous card in deck"
+            class="carousel__btn carousel__btn_type_left carousel__btn_disabled"
+          ></button>
+          <div class="carousel__card">
+            <p class="carousel__card-text">Flashcard question</p>
+          </div>
+          <button
+            type="button"
+            aria-label="Go to next card in deck"
+            class="carousel__btn carousel__btn_type_right"
+          ></button>
+          <button
+            type="button"
+            aria-label="Flip card"
+            class="carousel__btn carousel__btn_type_flip"
+          ></button>
+        </div>
+      </section>
     </main>
 
     <div class="modal">
-        <div class="modal__overlay"></div>
-        <div class="modal__content">
-            <h2 class="modal__title"></h2>
-            <p class="modal__text"></p>
-            <div class="modal__buttons">
-                <button type="button" class="modal__cancel-btn">Cancel</button>
-                <button type="button" class="modal__confirm-btn">Confirm</button>
-            </div>
+      <div class="modal__overlay"></div>
+      <div class="modal__content">
+        <h2 class="modal__title">Confirm action</h2>
+        <p class="modal__text">Are you sure?</p>
+        <div class="modal__buttons">
+          <button type="button" class="modal__cancel-btn">Cancel</button>
+          <button type="button" class="modal__confirm-btn">Confirm</button>
         </div>
+      </div>
     </div>
 
     <footer class="footer">
-        <p class="footer__text">designed with love &copy; 2026</p>
+      <p class="footer__text">designed with love &copy; 2026</p>
     </footer>
 
-<script src="./assets/js/index.js" type="module"></script>
-</body>
+    <script src="./assets/js/index.js" type="module"></script>
+  </body>
 </html>

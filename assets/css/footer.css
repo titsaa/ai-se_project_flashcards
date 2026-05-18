@@ -1,4 +1,9 @@
 .footer {
-    margin-top: auto; 
-    margin-bottom: 32px;
+  margin-top: auto;
+  margin-bottom: 32px;
+  background-color: #ececec;
+}
+
+.footer__text {
+  margin: 0;
 }

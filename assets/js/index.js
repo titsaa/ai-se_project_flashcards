@@ -18,8 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const practiceBtn = deckViewSection.querySelector(".gallery__practice-btn");
 
   function showView(currentSection, displayValue) {
-    const sections = [homeSection, deckViewSection, notFoundSection, carouselSection];
-    sections.forEach(section => {
+    const sections = [
+      homeSection,
+      deckViewSection,
+      notFoundSection,
+      carouselSection,
+    ];
+    sections.forEach((section) => {
       section.style.display = "none";
     });
     currentSection.style.display = displayValue;
@@ -28,36 +33,40 @@ document.addEventListener("DOMContentLoaded", () => {
   function createDeckEl(item) {
     const deckEl = deckTemplate.content.cloneNode(true);
     const deckLi = deckEl.querySelector(".card");
-    
+
     deckEl.querySelector(".card__title").textContent = item.name;
-    
+
     // Set the card count
     const cardCount = item.cards.length;
     deckEl.querySelector(".card__count").textContent = `${cardCount} cards`;
-    
+
     // Get the color name from hex and add the BEM modifier to the <li>
     const color = hexToString(item.color);
     if (color) {
       deckLi.classList.add(`card_color_${color}`);
     }
-    
+
     // Set the deck link href
     const deckLink = deckEl.querySelector(".card__link");
     if (deckLink) {
       deckLink.href = `#deck/${item.id}`;
     }
-    
+
     // Add delete button functionality
     const deleteBtn = deckEl.querySelector(".card__btn_type_delete");
     if (deleteBtn) {
       deleteBtn.addEventListener("click", (e) => {
         e.stopPropagation(); // Prevent triggering the deck link
-        openModal("Delete Deck", "Are you sure you want to delete this deck?", () => {
-          deckLi.remove();
-        });
+        openModal(
+          "Delete Deck",
+          "Are you sure you want to delete this deck?",
+          () => {
+            deckLi.remove();
+          },
+        );
       });
     }
-    
+
     return deckEl;
   }
 

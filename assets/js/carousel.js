@@ -8,7 +8,9 @@ function renderCarouselView(deck) {
   const carouselSection = document.querySelector("#carousel");
   const carouselTitle = carouselSection.querySelector(".carousel__title");
   const carouselCard = carouselSection.querySelector(".carousel__card");
-  const carouselCardText = carouselSection.querySelector(".carousel__card-text");
+  const carouselCardText = carouselSection.querySelector(
+    ".carousel__card-text",
+  );
   const leftBtn = carouselSection.querySelector(".carousel__btn_type_left");
   const rightBtn = carouselSection.querySelector(".carousel__btn_type_right");
   const flipBtn = carouselSection.querySelector(".carousel__btn_type_flip");
@@ -22,10 +24,10 @@ function renderCarouselView(deck) {
 
   function updateDisplay() {
     const currentCard = deck.cards[currentIndex];
-    
+
     // Update title
     carouselTitle.textContent = getCarouselTitleString(deck, currentIndex);
-    
+
     // Update card text
     if (showingQuestion) {
       carouselCardText.textContent = currentCard.question;
@@ -34,14 +36,14 @@ function renderCarouselView(deck) {
       carouselCardText.textContent = currentCard.answer;
       carouselCard.classList.add("carousel__card_color_white");
     }
-    
+
     // Update button states
     if (currentIndex === 0) {
       leftBtn.classList.add("carousel__btn_disabled");
     } else {
       leftBtn.classList.remove("carousel__btn_disabled");
     }
-    
+
     if (currentIndex === deck.cards.length - 1) {
       rightBtn.classList.add("carousel__btn_disabled");
     } else {
@@ -50,32 +52,33 @@ function renderCarouselView(deck) {
   }
 
   // Set up card color
+  removeColorClasses(carouselCard);
   const color = hexToString(deck.color);
   if (color) {
     carouselCard.classList.add(`carousel__card_color_${color}`);
   }
 
   // Button event listeners
-  leftBtn.addEventListener("click", () => {
+  leftBtn.onclick = () => {
     if (currentIndex > 0) {
       currentIndex--;
       showingQuestion = true;
       updateDisplay();
     }
-  });
+  };
 
-  rightBtn.addEventListener("click", () => {
+  rightBtn.onclick = () => {
     if (currentIndex < deck.cards.length - 1) {
       currentIndex++;
       showingQuestion = true;
       updateDisplay();
     }
-  });
+  };
 
-  flipBtn.addEventListener("click", () => {
+  flipBtn.onclick = () => {
     showingQuestion = !showingQuestion;
     updateDisplay();
-  });
+  };
 
   // Display the first card
   updateDisplay();

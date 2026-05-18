@@ -39,9 +39,13 @@ function createFlashcardEl(card, deckColor) {
   if (deleteBtn) {
     deleteBtn.addEventListener("click", (event) => {
       event.stopPropagation();
-      openModal("Delete Card", "Are you sure you want to delete this card?", () => {
-        cardLi.remove();
-      });
+      openModal(
+        "Delete Card",
+        "Are you sure you want to delete this card?",
+        () => {
+          cardLi.remove();
+        },
+      );
     });
   }
 
