@@ -64,7 +64,7 @@
     color: #fff;
     text-decoration: none;
     z-index: 4;
-    width: calc(50% - 24px);
+    width: calc(50% - 30px);
     height: 52px;
     min-height: 52px;
     box-shadow:
@@ -81,16 +81,32 @@
 
   .gallery__practice-btn {
     right: 20px;
-    width: calc(50% - 24px);
+    width: calc(50% - 30px);
+    left: auto;
+  }
+
+  #deck-view .gallery__new-card-btn_location_deck-view,
+  #deck-view .gallery__practice-btn {
+    bottom: 96px;
+    width: calc(50vw - 30px);
+    max-width: calc(50vw - 30px);
+    height: 52px;
+    min-height: 52px;
+    margin: 0;
+  }
+
+  #deck-view .gallery__practice-btn {
+    right: 20px;
     left: auto;
   }
 
   .gallery__new-card-btn_location_deck-view {
     left: 20px;
     right: auto;
-    width: calc(50% - 24px);
+    width: calc(50vw - 30px);
     border-radius: 20px;
-    color: #fff;
+    background-color: #d9d9d9;
+    color: #1a1a1a;
     margin: 0;
   }
 

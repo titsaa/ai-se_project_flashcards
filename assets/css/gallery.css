@@ -62,7 +62,7 @@
 }
 
 .gallery__new-card-btn {
-  background-color: #1a1a1a;
+  background-color: #3f3f3f;
   cursor: pointer;
   font-weight: 700;
   font-size: 24px;
@@ -79,4 +79,9 @@
 
 .gallery__new-card-btn:hover {
   opacity: 0.85;
+}
+
+.gallery__new-card-btn_location_deck-view {
+  background-color: #d9d9d9;
+  color: #1a1a1a;
 }
