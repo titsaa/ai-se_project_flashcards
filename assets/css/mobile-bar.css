@@ -28,6 +28,22 @@
     margin-bottom: 16px;
   }
 
+  .new-deck-view {
+    max-width: none;
+  }
+
+  .new-deck-view__title {
+    font-size: 32px;
+  }
+
+  .new-deck-view__textarea {
+    min-height: 240px;
+  }
+
+  .new-deck-view__submit-btn {
+    width: 100%;
+  }
+
   .gallery__header {
     flex-direction: column;
     align-items: stretch;

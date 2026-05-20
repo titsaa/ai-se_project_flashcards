@@ -10,16 +10,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const deckTemplate = document.querySelector("#deck-template");
   const decksList = document.querySelector("#home .gallery__list");
   const homeSection = document.querySelector("#home");
+  const newDeckViewSection = document.querySelector("#new-deck-view");
   const deckViewSection = document.querySelector("#deck-view");
   const notFoundSection = document.querySelector("#not-found");
   const carouselSection = document.querySelector("#carousel");
   const pageEl = document.querySelector(".page");
   const mainEl = document.querySelector(".page__main-content");
   const practiceBtn = deckViewSection.querySelector(".gallery__practice-btn");
+  const newDeckBtn = document.querySelector("#home .gallery__new-card-btn");
 
   function showView(currentSection, displayValue) {
     const sections = [
       homeSection,
+      newDeckViewSection,
       deckViewSection,
       notFoundSection,
       carouselSection,
@@ -81,6 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  newDeckBtn.addEventListener("click", () => {
+    window.location.hash = "#new-deck-view";
+  });
+
   // Router function
   function router() {
     const hash = window.location.hash.slice(1); // Remove the # symbol
@@ -89,6 +96,11 @@ document.addEventListener("DOMContentLoaded", () => {
       showView(homeSection, "block");
       mainEl.classList.remove("page__main-content_location_carousel");
       pageEl.classList.remove("page_no-mobile-bar");
+      currentDeck = null;
+    } else if (hash === "new-deck-view") {
+      showView(newDeckViewSection, "block");
+      mainEl.classList.remove("page__main-content_location_carousel");
+      pageEl.classList.add("page_no-mobile-bar");
       currentDeck = null;
     } else if (hash.startsWith("deck/")) {
       const deckID = hash.split("/")[1];

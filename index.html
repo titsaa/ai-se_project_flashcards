@@ -64,6 +64,93 @@
           </button>
         </div>
       </section>
+      <section class="new-deck-view" id="new-deck-view">
+        <h2 class="new-deck-view__title">New Deck</h2>
+        <form class="new-deck-view__form" id="new-deck-form">
+          <fieldset class="new-deck-view__color-picker">
+            <legend class="new-deck-view__legend">Choose a color</legend>
+            <label
+              class="new-deck-view__color-option new-deck-view__color-option_color_green"
+            >
+              <input
+                class="new-deck-view__color-input"
+                type="radio"
+                name="deck-color"
+                value="green"
+                checked
+              />
+              <span class="new-deck-view__color-swatch"></span>
+            </label>
+            <label
+              class="new-deck-view__color-option new-deck-view__color-option_color_blue"
+            >
+              <input
+                class="new-deck-view__color-input"
+                type="radio"
+                name="deck-color"
+                value="blue"
+              />
+              <span class="new-deck-view__color-swatch"></span>
+            </label>
+            <label
+              class="new-deck-view__color-option new-deck-view__color-option_color_pink"
+            >
+              <input
+                class="new-deck-view__color-input"
+                type="radio"
+                name="deck-color"
+                value="pink"
+              />
+              <span class="new-deck-view__color-swatch"></span>
+            </label>
+            <label
+              class="new-deck-view__color-option new-deck-view__color-option_color_purple"
+            >
+              <input
+                class="new-deck-view__color-input"
+                type="radio"
+                name="deck-color"
+                value="purple"
+              />
+              <span class="new-deck-view__color-swatch"></span>
+            </label>
+            <label
+              class="new-deck-view__color-option new-deck-view__color-option_color_orange"
+            >
+              <input
+                class="new-deck-view__color-input"
+                type="radio"
+                name="deck-color"
+                value="orange"
+              />
+              <span class="new-deck-view__color-swatch"></span>
+            </label>
+            <label
+              class="new-deck-view__color-option new-deck-view__color-option_color_yellow"
+            >
+              <input
+                class="new-deck-view__color-input"
+                type="radio"
+                name="deck-color"
+                value="yellow"
+              />
+              <span class="new-deck-view__color-swatch"></span>
+            </label>
+          </fieldset>
+          <label class="new-deck-view__json-label" for="new-deck-json">
+            Deck JSON
+            <textarea
+              class="new-deck-view__textarea"
+              id="new-deck-json"
+              name="deck-json"
+              placeholder="Paste deck JSON here"
+            ></textarea>
+          </label>
+          <button class="new-deck-view__submit-btn" type="submit" disabled>
+            Create Deck
+          </button>
+        </form>
+      </section>
       <section id="deck-view" class="gallery">
         <div class="gallery__header">
           <h2 class="gallery__title">Deck</h2>
