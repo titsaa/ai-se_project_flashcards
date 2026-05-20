@@ -2,6 +2,7 @@ import { decks, getDeckByID } from "./gallery.js";
 import { hexToString } from "./colorMap.js";
 import { renderCarouselView } from "./carousel.js";
 import { renderDeckView } from "./deck-view.js";
+import { disableSubmitBtn } from "./new-deck-view.js";
 import { openModal } from "./modal.js";
 
 let currentDeck = null;
@@ -102,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
       mainEl.classList.remove("page__main-content_location_carousel");
       pageEl.classList.add("page_no-mobile-bar");
       currentDeck = null;
+      disableSubmitBtn();
     } else if (hash.startsWith("deck/")) {
       const deckID = hash.split("/")[1];
       const deck = getDeckByID(deckID);
