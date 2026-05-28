@@ -1,4 +1,5 @@
-import { decks } from "./gallery.js";
+import { createDeck } from "./api.js";
+import { loadDecks } from "./gallery.js";
 
 const HEX_DIGITS = /^[0-9a-fA-F]{6}$/;
 
@@ -42,22 +43,29 @@ function disableSubmitBtn() {
   submitBtn.removeAttribute("disabled");
 }
 
-formEl.addEventListener("submit", (e) => {
+formEl.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const formData = new FormData(e.target);
   const values = Object.fromEntries(formData);
   const jsonData = JSON.parse(textareaEl.value);
-  const id = `${slugify(jsonData.name)}-${Date.now()}`;
+  
   const deck = {
-    id,
-    color: normalizeColor(values.color),
     name: jsonData.name,
+    color: normalizeColor(values.color),
     cards: jsonData.cards,
   };
 
-  decks.push(deck);
-  window.location.hash = `deck/${id}`;
+  try {
+    submitBtn.disabled = true;
+    const createdDeck = await createDeck(deck);
+    await loadDecks();
+    window.location.hash = `#deck/${createdDeck._id}`;
+  } catch (error) {
+    console.error("Failed to create deck:", error);
+    alert("Failed to create deck. Please try again.");
+    submitBtn.disabled = false;
+  }
 });
 
 export { disableSubmitBtn };

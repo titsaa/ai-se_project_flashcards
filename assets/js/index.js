@@ -1,4 +1,5 @@
-import { decks, getDeckByID } from "./gallery.js";
+import { decks, getDeckByID, loadDecks } from "./gallery.js";
+import { deleteDeck, createCard } from "./api.js";
 import { hexToString } from "./colorMap.js";
 import { renderCarouselView } from "./carousel.js";
 import { renderDeckView } from "./deck-view.js";
@@ -7,7 +8,10 @@ import { openModal } from "./modal.js";
 
 let currentDeck = null;
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  // Load decks from API first
+  await loadDecks();
+  
   const deckTemplate = document.querySelector("#deck-template");
   const decksList = document.querySelector("#home .gallery__list");
   const homeSection = document.querySelector("#home");
@@ -19,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const mainEl = document.querySelector(".page__main-content");
   const practiceBtn = deckViewSection.querySelector(".gallery__practice-btn");
   const newDeckBtn = document.querySelector("#home .gallery__new-card-btn");
+  const newCardBtn = deckViewSection.querySelector(".gallery__new-card-btn_location_deck-view");
 
   function showView(currentSection, displayValue) {
     const sections = [
@@ -53,19 +58,27 @@ document.addEventListener("DOMContentLoaded", () => {
     // Set the deck link href
     const deckLink = deckEl.querySelector(".card__link");
     if (deckLink) {
-      deckLink.href = `#deck/${item.id}`;
+      deckLink.href = `#deck/${item._id}`;
     }
 
     // Add delete button functionality
     const deleteBtn = deckEl.querySelector(".card__btn_type_delete");
     if (deleteBtn) {
-      deleteBtn.addEventListener("click", (e) => {
-        e.stopPropagation(); // Prevent triggering the deck link
+      deleteBtn.addEventListener("click", async (e) => {
+        e.stopPropagation();
         openModal(
           "Delete Deck",
           "Are you sure you want to delete this deck?",
-          () => {
-            deckLi.remove();
+          async () => {
+            try {
+              await deleteDeck(item._id);
+              deckLi.remove();
+              // Reload decks after deletion
+              await loadDecks();
+            } catch (error) {
+              console.error("Failed to delete deck:", error);
+              alert("Failed to delete deck. Please try again.");
+            }
           },
         );
       });
@@ -81,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   practiceBtn.addEventListener("click", () => {
     if (currentDeck) {
-      window.location.hash = `#carousel/${currentDeck.id}`;
+      window.location.hash = `#carousel/${currentDeck._id}`;
     }
   });
 
@@ -89,9 +102,33 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.hash = "#new-deck-view";
   });
 
+  newCardBtn.addEventListener("click", async () => {
+    if (!currentDeck) return;
+    
+    const question = prompt("Enter the question:");
+    if (!question) return;
+    
+    const answer = prompt("Enter the answer:");
+    if (!answer) return;
+    
+    try {
+      await createCard(currentDeck._id, { question, answer });
+      // Reload the current deck
+      await loadDecks();
+      const updatedDeck = getDeckByID(currentDeck._id);
+      if (updatedDeck) {
+        currentDeck = updatedDeck;
+        renderDeckView(updatedDeck);
+      }
+    } catch (error) {
+      console.error("Failed to create card:", error);
+      alert("Failed to create card. Please try again.");
+    }
+  });
+
   // Router function
   function router() {
-    const hash = window.location.hash.slice(1); // Remove the # symbol
+    const hash = window.location.hash.slice(1);
 
     if (hash === "home" || hash === "") {
       showView(homeSection, "block");
