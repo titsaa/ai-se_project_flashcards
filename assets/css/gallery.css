@@ -32,6 +32,7 @@
 
 #deck-view,
 #carousel,
+#about,
 #not-found {
   display: none;
 }

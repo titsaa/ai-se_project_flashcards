@@ -1,8 +1,10 @@
 import { hexToString, removeColorClasses } from "./colorMap.js";
 
 /**
- * Renders the carousel view for a given deck
- * @param {object} deck - The deck object to render
+ * Renders the carousel view for a given deck.
+ *
+ * @param {object} deck - The deck object to render.
+ * @returns {void}
  */
 function renderCarouselView(deck) {
   const carouselSection = document.querySelector("#carousel");
@@ -18,12 +20,32 @@ function renderCarouselView(deck) {
   let currentIndex = 0;
   let showingQuestion = true;
 
+  /**
+   * Builds the carousel title for the current card position.
+   *
+   * @param {object} deck - The deck currently being practiced.
+   * @param {number} currentIndex - The current card index.
+   * @returns {string} The carousel title text.
+   */
   function getCarouselTitleString(deck, currentIndex) {
     return `${deck.name} · ${currentIndex + 1}/${deck.cards.length}`;
   }
 
+  /**
+   * Updates carousel text, color, and navigation button states.
+   *
+   * @returns {void}
+   */
   function updateDisplay() {
     const currentCard = deck.cards[currentIndex];
+
+    if (!currentCard) {
+      carouselTitle.textContent = `${deck.name} · 0/0`;
+      carouselCardText.textContent = "No cards in this deck yet.";
+      leftBtn.classList.add("carousel__btn_disabled");
+      rightBtn.classList.add("carousel__btn_disabled");
+      return;
+    }
 
     // Update title
     carouselTitle.textContent = getCarouselTitleString(deck, currentIndex);

@@ -1,0 +1,31 @@
+.about {
+  display: none;
+  max-width: 680px;
+}
+
+.about__title {
+  margin: 0 0 20px;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.2;
+}
+
+.about__text {
+  margin: 0 0 24px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.about__code {
+  margin: 0;
+  padding: 20px;
+  overflow-x: auto;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow:
+    0px 2px 8px 0px #0000001a,
+    -1px 2px 2px 0px #ffffffb2 inset,
+    1px -1px 2px 0px #00000040 inset;
+  font: 500 15px/1.5 "Courier New", Courier, monospace;
+}

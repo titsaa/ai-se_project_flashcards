@@ -1,20 +1,18 @@
-import { decks, getDeckByID, loadDecks } from "./gallery.js";
-import { deleteDeck, createCard } from "./api.js";
-import { hexToString } from "./colorMap.js";
+import { createCard, deleteDeck, getDecks } from "./api.js";
+import { fetchedDecks, getDeckByID, removeDeckByID } from "./gallery.js";
+import { hexToString, removeColorClasses } from "./colorMap.js";
 import { renderCarouselView } from "./carousel.js";
 import { renderDeckView } from "./deck-view.js";
-import { disableSubmitBtn } from "./new-deck-view.js";
-import { openModal } from "./modal.js";
+import { disableSubmitBtn, setupNewDeckForm } from "./new-deck-view.js";
+import { openModal, showError } from "./modal.js";
 
 let currentDeck = null;
 
-document.addEventListener("DOMContentLoaded", async () => {
-  // Load decks from API first
-  await loadDecks();
-  
+document.addEventListener("DOMContentLoaded", () => {
   const deckTemplate = document.querySelector("#deck-template");
   const decksList = document.querySelector("#home .gallery__list");
   const homeSection = document.querySelector("#home");
+  const aboutSection = document.querySelector("#about");
   const newDeckViewSection = document.querySelector("#new-deck-view");
   const deckViewSection = document.querySelector("#deck-view");
   const notFoundSection = document.querySelector("#not-found");
@@ -25,9 +23,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   const newDeckBtn = document.querySelector("#home .gallery__new-card-btn");
   const newCardBtn = deckViewSection.querySelector(".gallery__new-card-btn_location_deck-view");
 
+  /**
+   * Shows one app section and hides the remaining sections.
+   *
+   * @param {HTMLElement} currentSection - The section to display.
+   * @param {string} displayValue - The CSS display value to apply.
+   * @returns {void}
+   */
   function showView(currentSection, displayValue) {
     const sections = [
       homeSection,
+      aboutSection,
       newDeckViewSection,
       deckViewSection,
       notFoundSection,
@@ -39,9 +45,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     currentSection.style.display = displayValue;
   }
 
+  /**
+   * Creates a deck card element from the deck template.
+   *
+   * @param {object} item - The deck data to render.
+   * @returns {DocumentFragment} A populated deck template.
+   */
   function createDeckEl(item) {
     const deckEl = deckTemplate.content.cloneNode(true);
     const deckLi = deckEl.querySelector(".card");
+    removeColorClasses(deckLi);
 
     deckEl.querySelector(".card__title").textContent = item.name;
 
@@ -71,13 +84,13 @@ document.addEventListener("DOMContentLoaded", async () => {
           "Are you sure you want to delete this deck?",
           async () => {
             try {
+              deleteBtn.disabled = true;
               await deleteDeck(item._id);
+              removeDeckByID(item._id);
               deckLi.remove();
-              // Reload decks after deletion
-              await loadDecks();
             } catch (error) {
-              console.error("Failed to delete deck:", error);
-              alert("Failed to delete deck. Please try again.");
+              deleteBtn.disabled = false;
+              showError("Could not delete the deck. Please try again.");
             }
           },
         );
@@ -87,6 +100,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     return deckEl;
   }
 
+  /**
+   * Renders a deck card in the home view.
+   *
+   * @param {object} item - The deck data to render.
+   * @returns {void}
+   */
   function renderDeckEl(item) {
     const deckEl = createDeckEl(item);
     decksList.prepend(deckEl);
@@ -112,21 +131,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!answer) return;
     
     try {
-      await createCard(currentDeck._id, { question, answer });
-      // Reload the current deck
-      await loadDecks();
-      const updatedDeck = getDeckByID(currentDeck._id);
-      if (updatedDeck) {
-        currentDeck = updatedDeck;
-        renderDeckView(updatedDeck);
-      }
+      const createdCard = await createCard(currentDeck._id, { question, answer });
+      currentDeck.cards.push(createdCard);
+      renderDeckView(currentDeck);
     } catch (error) {
-      console.error("Failed to create card:", error);
-      alert("Failed to create card. Please try again.");
+      showError("Could not create the card. Please try again.");
     }
   });
 
-  // Router function
+  /**
+   * Renders the view matching the current URL hash.
+   *
+   * @returns {void}
+   */
   function router() {
     const hash = window.location.hash.slice(1);
 
@@ -134,6 +151,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       showView(homeSection, "block");
       mainEl.classList.remove("page__main-content_location_carousel");
       pageEl.classList.remove("page_no-mobile-bar");
+      currentDeck = null;
+    } else if (hash === "about") {
+      showView(aboutSection, "block");
+      mainEl.classList.remove("page__main-content_location_carousel");
+      pageEl.classList.add("page_no-mobile-bar");
       currentDeck = null;
     } else if (hash === "new-deck-view") {
       showView(newDeckViewSection, "block");
@@ -181,10 +203,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Render initial decks
-  decks.forEach(renderDeckEl);
+  setupNewDeckForm(renderDeckEl);
+
+  getDecks()
+    .then((decks) => {
+      fetchedDecks.push(...decks);
+      decks.forEach(renderDeckEl);
+    })
+    .catch(() => {
+      showError("Could not fetch decks. Please refresh and try again.");
+    })
+    .finally(() => {
+      router();
+    });
 
   // Set up router
   window.addEventListener("hashchange", router);
-  router();
 });
